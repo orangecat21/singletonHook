@@ -1,16 +1,16 @@
 export class Singleton {
     name = 'I`m singleton';
-    static count = '0';
+    static refCount = '0';
     constructor() {
-        Singleton.count = Singleton.count + '1';
+        Singleton.refCount = Singleton.refCount + '1';
         if (Singleton._instance) return Singleton._instance;
         Singleton._instance = this;
     }
 
     unsubscribe = () => {
-        console.log(Singleton.count);
-        Singleton.count = Singleton.count.slice(0, Singleton.count.length - 1);
-        if (Singleton.count === "0") {
+        console.log(Singleton.refCount);
+        Singleton.refCount = Singleton.refCount.slice(0, Singleton.refCount.length - 1);
+        if (Singleton.refCount === "0") {
             Singleton.destroy();
         }
     }
