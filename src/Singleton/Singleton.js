@@ -1,6 +1,5 @@
 export class Singleton {
     static refCount = 0;
-    fff = 'asd'
     constructor() {
         if (Singleton._instance) return Singleton._instance;
         Singleton._instance = this;
@@ -8,11 +7,10 @@ export class Singleton {
 
     subscribe() {
         Singleton.refCount++;
-        return this.unsubscribe;
+        return this.unsubscribeHandler;
     }
 
-    unsubscribe = () => {
-        console.log(Singleton.refCount);
+    unsubscribeHandler = () => {
         Singleton.refCount--;
         if (Singleton.refCount === 0) {
             Singleton.destroyInstance();

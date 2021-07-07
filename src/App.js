@@ -1,16 +1,27 @@
 import { useState } from 'react';
-import {Consumera} from './components/consumer';
+import { Consumer } from './components/Consumer';
 
 function App() {
-  const [flag, setFlag] = useState(false);
-  return (
-    <div className="App">
-      <button onClick={() => {
-          setFlag(!flag)
-        }}>Click</button>
-      {!flag ? <Consumera/> : <span>JOPA</span>}
-    </div>
-  );
+	const [showConsumer, setShowConsumer] = useState(false);
+	return (
+		<div style={
+			{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				height: '100vh',
+				flexDirection: 'column',
+			}
+		}>
+			<button onClick={() => {
+				setShowConsumer(!showConsumer)
+			}}>Click Me!
+			</button>
+			<div>
+				{!showConsumer ? <Consumer /> : <span>Another Component</span>}
+			</div>
+		</div>
+	);
 }
 
 export default App;
