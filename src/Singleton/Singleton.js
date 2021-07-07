@@ -1,7 +1,10 @@
 export class Singleton {
+    // Counter to track the number of subscribers
     static refCount = 0;
     constructor() {
+        // If instanced, it will return a reference to the instance
         if (Singleton._instance) return Singleton._instance;
+        // If not, we create a new instance and remember it
         Singleton._instance = this;
     }
 
