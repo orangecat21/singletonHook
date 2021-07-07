@@ -1,9 +1,30 @@
 import { useEffect, useMemo } from "react";
 
-export function useManager(Class) {
-    const instance = useMemo(() => new Class(), [Class]);
+export function Adapter(subscriber, Class, ...classDeps) {
+    if (subscriber?.render) {
+        const instance = new Class(...classDeps);
+        const unsubscribeHandler = instance.subscribe();
+        const initialComponentWillUnmount = subscriber.componentWillUnmount?.bind(subscriber);
+        subscriber.componentWillUnmount = (...params) => {
+            console.log('unmount');
+            unsubscribeHandler();
+            subscriber.componentWillUnmount = initialComponentWillUnmount;
+            initialComponentWillUnmount?.(...params);
+            for (let key in subscriber) {
+               if (!subscriber.hasOwnProperty(key)) continue;
+                subscriber[key] = null;
+            }
+        };
+        return instance;
+    }
 
-    useEffect(() => instance.unsubscribe, [instance.unsubscribe]);
+    return Manager(Class, ...classDeps);
+}
+
+const Manager = (Class, ...classDeps) => {
+    const instance = useMemo(() => new Class(...classDeps), [Class, classDeps]);
+
+    useEffect(() => instance.subscribe(), [instance, instance.unsubscribe]);
 
     return instance;
 }

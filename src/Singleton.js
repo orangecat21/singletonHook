@@ -1,21 +1,29 @@
 export class Singleton {
-    name = 'I`m singleton';
-    static refCount = '0';
+    static refCount = 0;
+    fff = 'asd'
     constructor() {
-        Singleton.refCount = Singleton.refCount + '1';
         if (Singleton._instance) return Singleton._instance;
         Singleton._instance = this;
     }
 
+    subscribe() {
+        Singleton.refCount++;
+        return this.unsubscribe;
+    }
+
     unsubscribe = () => {
         console.log(Singleton.refCount);
-        Singleton.refCount = Singleton.refCount.slice(0, Singleton.refCount.length - 1);
-        if (Singleton.refCount === "0") {
-            Singleton.destroy();
+        Singleton.refCount--;
+        if (Singleton.refCount === 0) {
+            Singleton.destroyInstance();
         }
     }
 
-    static destroy() {
+    get name() {
+        return 'Name';
+    }
+
+    static destroyInstance() {
         Singleton._instance = null;
     }
 }

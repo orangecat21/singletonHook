@@ -1,10 +1,23 @@
 import React from 'react';
-import { useManager } from '../useManager';
+import { Adapter } from '../useManager';
 import { Singleton } from '../Singleton';
 
 
-export const Consumera = () => {
-    const instance = useManager(Singleton);
+// export const Consumera = () => {
+// 	const manager = Adapter(this, Singleton);
+//
+// 	return <span>{manager.name}</span>;
+//
+// }
 
-    return <span>{instance.name}</span>
+export class Consumera extends React.Component{
+
+	componentDidMount() {
+		this.manager = Adapter(this, Singleton);
+		this.setState({});
+	}
+
+	render() {
+		return <span>{this.manager?.name}</span>;
+	}
 }

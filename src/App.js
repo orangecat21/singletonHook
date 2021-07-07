@@ -8,9 +8,9 @@ function App() {
       <button onClick={() => {
           setFlag(!flag)
         }}>Click</button>
-      {!flag ? <Consumera/> : null}
+      {!flag ? <Consumera/> : <span>JOPA</span>}
     </div>
   );
-}   
+}
 
 export default App;
