@@ -1,23 +1,25 @@
 import React from 'react';
-import { singletonBuilder } from '../Singleton/singletonBuilder';
-import { Singleton } from '../Singleton/Singleton';
+import { useManager } from '../Singleton/singletonBuilder';
+import { AbstractManager } from '../Singleton/AbstractManager';
 
 
-// export const Consumer = () => {
-// 	const manager = singletonBuilder(this, Singleton);
-//
-// 	return <span>{manager.name}</span>;
-//
-// }
+class A extends AbstractManager {
+	constructor() {
+		super();
+		this.name = 'JOPA';
+	}
+}
 
 export class Consumer extends React.Component{
 
 	componentDidMount() {
-		this.manager = singletonBuilder(this, Singleton);
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		this.manager = useManager(this, A);
 		this.setState({});
 	}
 
 	render() {
 		return <span>{this.manager?.name}</span>;
+		// return <span>{'JOPA'}</span>;
 	}
 }
